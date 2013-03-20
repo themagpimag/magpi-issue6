@@ -1,0 +1,42 @@
+FIRST PROGRAM (HTML writer):
+============================
+"The first example... a html web page." should be "...an html..."
+
+You have a note to avoid " but use them throughout, ie:
+# Note: avoid using " quotations, use instead '
+f.write("<html>"+"\n")
+etc
+I think you mean avoid using " for both python start-end strings and for surrounding values in HTML but this is unclear from the above note.
+
+I have a little issue with:
+f.write("<font face='verdana' color='#000000'>"+"\n")
+as this is teaching the novice not to use HTML stylesheets. This would be better written as an inline style on a <p> tag.
+Same with using <b> tags later. Use <em> with a style is better.
+
+These lines:
+f.write("<h3>A Subheading</h3><p>"+"\n")
+f.write("This is the text of the first paragraph.<p>"+"\n")
+should end in </p> not <p>
+
+This line:
+f.write("<b><a href='http:www.themagpi.com'>WEBSITE</a></b><p>"+"\n")
+should be "http://www" not "http:www"
+
+These lines:
+f.write("<b><a href='mailto:editor@themagpi.com'>EMAIL</a></b><p>"+"\n")
+f.write("<b><a href='http:www.themagpi.com'>WEBSITE</a></b><p>"+"\n")
+should end in </p> not <p>
+
+--
+
+SECOND PROGRAM (Fading titles):
+===============================
+I think this is called a list in Python, not an array?
+settings = [] # Create a variable array to hold the settings
+
+
+This program appears to end in an if statement:
+if nexttitle>=4: nexttitle=1
+I think the last lines of the program are missing.
+
+

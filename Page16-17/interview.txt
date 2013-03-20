@@ -1,0 +1,99 @@
+TARGET ISSUE: 6, October
+
+Camera Pi
+An interview with David Hunt
+
+<INTROTEXT>
+Take a look at the photo above and you will see a perfectly normal camera that has been given some extra functionality by the inclusion of a Raspberry Pi in the grip. This is Camera Pi.
+</INTROTEXT>
+
+1
+Q: I understand you have been thinking of implementing Camera Pi for a couple of years but the right computer board has not come along (ie: ideal combination of size and cost). When you saw the Raspberry Pi did you immediately think that it was ideal, or did you order one for other projects and then notice it fits in the camera grip?
+
+A: For embedding a computer inside a camera grip the Raspberry Pi was a bit of a Eureka moment. The price point is perfect. I had looked at the Beagleboard and similar but their price points were too high each time. The Pi is a perfect combination of price, size and features. I saw an announcement on Engadget and thought I have to get one as the price to power ratio is perfect.
+
+Actually, I am a DIY kind of guy so I ordered two Pi’s, one each from Farnell and RS.
+
+2
+Q: Taking the iPhone charger apart to use as a DC-DC converter for the Raspberry Pi's power shows a fair bit of lateral thinking. How did you go about discovering that the circuitry inside was what you needed?
+
+A: Someone on the Raspberry Pi Forums mentioned this, and by chance I had a broken iPhone charger in the recycling box. Originally I connected 5V from AA batteries to one end of the DC-DC converter but only got 4V out the other end. I had a flash of an idea to use a Canon camera battery and got 5.08V, enough to power the Pi. I was a little worried about power, but I plugged it in and up it came with ethernet and USB working. I was jumping around all over the place!
+
+I cut the original batter compartment that I had removed from the grip in half and used that to mount the battery. This was then located in a cut-out on the grip as there was loads of room to the right of the Pi although it does push on the GPIO a bit, but I covered this with shrink wrap and it has not short circuited. A clip keeps the battery from falling out.
+
+3
+Q: How long have you found the charge lasting from the camera battery?
+
+4
+Q: In your blog you describe "After a few requests to the camera, the gphoto app responds with "Unknown Error and the only solution seems to be to unplug the usb cable and re-insert it." Have you had a chance to look into this problem? I notice you mention you have found some C code to reset the USB port but I get the feeling from the way that you describe this that it is more of a workaround than a fix.
+
+A: After installing Debian onto the Pi I tried connecting to the camera, taking and downloading an image over USB but gphoto2 would lock up after each image. I kept getting an error. I ended up leaving the Pi for a month because of this. However when Raspian was released I tried again and as I have a long history with Debian I and understand hardware drivers I thought I could solve this. In the end I found some C code on the net to reset USB after taking each image, which I wrapped in a shell script. With this in place and after a few hours of Perl hacking I had a working proof of concept.
+
+5
+Q: From the video on your site this is more than just camera meets Raspberry Pi as you have also integrated your iPad into the system to receive the photos from the camera. Did you find this a straightforward task?
+
+6
+Q: One of the things I like about this project is that you appear to keep adding more functionality to it: the iPad integration, WiFi and shutter release via GPIO (for readers I'll make sure I mention that this is an extra and that taking photos via USB is possible using gphoto2). So the question is: what next? In situ backups to a USB-attached storage device seem like a good idea for example and you mention this on your blog.
+
+7
+Q: How do you compare your solution to the Eye-Fi card? My take: Eye-Fi may be noticeably easier to set up but has only a fraction of the functionality that your solution has.
+
+I have an Eye-Fi SD card (http://www.eye.fi/) but as my Canon 5D uses Compact Flash an adaptor is needed but unfortunately these are not supported with the Eye-Fi card. I’m not blaming Eye-Fi as they do state on their website that adaptors are not supported, but it does mean I had to look for an alternative solution to wirelessly retrieve images from the camera. The Pi also gives me a lot of additional functionality by enabling direct control of the camera.
+
+8
+Q: How did you plan this project from the outset? Did you develop a plan and then stick to it or was this more of an organic add useful functionality as you go affair?
+
+A: It is definitely an organic project, although I do have a firm idea of what I want to achieve. When I saw the Pi I thought that it has lots of possibilities with HDMI, GPIO and USB on boar. I had watched [XXXX SERGE MOUNTAIN VIDEO XXXX] and it was inspiring stuff: his camera was connected to a stepper motor and could slowly pan as it took images. This kind of control is a killer feature and it is one of several possible directions Camera Pi may go in as the GPIO possibilities are endless.
+
+Video out over HDMI is also something I am looking at. Just today I got Adobe Lightroom working with the Pi by monitoring a directory on the Pi over FTP for new images.
+
+I did look at the Canon Wireless File Transmitter grip but at several hundred dollars it was a more expensive option than I was looking for, hence mentioning the Pi as a good alternative earlier.
+
+9
+IT projects rarely go without a hitch. Aside from the USB disconnect issue what other problems did you encounter? Did they prove fairly straightforward or quite tough to overcome?
+
+The proof of concept (not held in the camera grip) was fairly straightforward and worked well except for the USB lock-up problem. On the software side gphoto2 seems a bit slow and I need to look at the protocol it uses. To be honest I was amazed that the packages I need were already available in the repository and be installed easily through apt-get, for example: I found a package for NTFS hard disk support straight away when I went looking [XXXX ADD PACKAGE NAME XXXX]
+
+However with the hardware modifying the grip was a challenge and the hardest part of the build. I probably spent in the region of 40 hours carefully cutting and fitting the components. The grip is made of very tough plastic that is difficult to cut. This resulted in a couple of cracks in the grip. Plus the old electronics had to be pulled out and replaced. With the battery I realised that I could re-use the original grip’s battery cradle, cut in half.
+
+
+
+10
+Q: There are reports online of people having varying degrees of success with WiFi dongles, dependant mostly on which chipset they contain. You mention the Realtek RTL8188SU chipset in the dongle that you purchased - was this an intentional choice or accidental? http://www.element14.com/community/docs/DOC-44703/l/raspberry-pi-wifi-adapter-testing .
+
+Just after news about Camera Pi went viral online I purchased a Wifi adaptor off the shelf from Harvey Norman and it worked first time. I also had one on order from eBay but it crashed the Pi. I did a Masters in embedded platforms and have lots of experience with getting Wifi chipsets working, however the drivers from Realtek will not compile on the Pi. I reckon I can resolve this by building from scratch. Fortunately there is a list of compatible Wifi devices online [INSERT LINK]
+
+11
+Q: I can see the ability to automatically send photos to an iPad for immediate review being extremely useful in a studio environment, for example when taking portraits of children it enables parents to immediately see the images and hence be more involved in the process of taking the images with the photographer. Have you been in touch with any professional photographers with a view to creating such a setup for them? I imagine that using the Raspberry Pi would make the solution a lot less expensive than current commercial offerings,  perhaps with the exception of WiFi SD cards obviously (but the have only a fraction of the Pi's functionality on this regard)? 
+
+12 / 13
+Have you looked into automatically shutting down the Pi when not in use by for example sensing when the camera is switched off and then automatically running shutdown? Not sure how you would get it to switch on though - maybe a switch on the power circuit? 
+
+What do you think of the potential to extend the system via GPIO to be able to react to input from an ultrasound or other sensor (eg: for remote wildlife photography)? The ability to talk to the Pi via WiFi over SSH and remotely trigger the shutter avoids (to some extent) the need to hide out in a cold bird hide in winter for example. 
+
+Another possibility: geotagging photos as they are taken by connecting a gps to the Pi. 
+
+I’ve looked at GPIO a little: the mind boggles at the possibilities of talking to other equipment. For example I guess motorised telescope mounts are very expensive and using the Pi to drive such a setup is something I would like to see someone do. To-date I have hooked up some transistors and resistors to the GPIO pins and can wake the camera if it enters sleep mode by emulating a half-press of the shutter release, plus I have connected a broken shutter release cable to GPIO to take photos directly.
+
+I think that gphoto2 may not be suitable for taking photos rapidly in succession for quick timelapse photography. Instead directly driving the shutter release over GPIO may give the performance necessary here.
+
+I have also used GPIO to drive a DC motor but this is slow and it is not a stepper motor so is not very precise.
+
+
+14
+Q: Although you have already proven the point, I would still be interested to hear your opinion on the suitability of the Pi as an enabling device that brings an affordable hw and sw development platform into commercial reach of almost anyone. For example, there is a lot of debate online over whether the Pi should have been a bit more expensive and shipped with either 512MB ram or with a later generation ARM processor.
+
+A: I am used to working with limited device resources of just 64-128MB RAM (I once created an 8MB installation of Linux on Compact Flash with only a 70KB kernel). With the relatively decent CPU and RAM in the Pi, and with minimal RAM dedicated to the GPU (I never start the X GUI) it is perfect for my needs.
+
+I am amazed at what the Foundation has managed to achieve with the Pi’s hardware for the cost.
+
+15
+Following on from the above, did you take a look at plug computers first to undertake this project? As well as a Pi I own a Dreamplug and can see this performing a similar role with a camera,  but this is at approximately five times the cost of the Pi. 
+
+16
+Q: If you were starting the build again what would you do differently?
+
+17
+Q: And a bit about you?
+
+A: I worked on embedded systems for printers and handheld devices before mobile phones were around, programming in C on Symbol devices.
